@@ -19,6 +19,8 @@ tiles = list(range(32)) * 2
 state = {'mark': None}
 hide = [True] * 64
 
+#Inicializamos el contador de taps
+tap_count = 0
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -45,9 +47,11 @@ def xy(count):
 
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
+    global tap_count  # Acceder a la variable tap_count
     spot = index(x, y)
     mark = state['mark']
-
+    tap_count += 1  # Incrementar el contador de taps
+    
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
@@ -77,6 +81,10 @@ def draw():
         color('black')
         write(tiles[mark], font=('Arial', 30, 'normal'))
 
+    up()
+    goto(-180, 180)
+    color('black')
+    write(f'Taps: {tap_count}', font=('Arial', 16, 'normal'))
     update()
     ontimer(draw, 100)
 
