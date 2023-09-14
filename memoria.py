@@ -1,15 +1,18 @@
 from random import *
 from turtle import *
+import string
 
 from freegames import path
 
 car = path('car.gif')
-tiles = list(range(32)) * 2
+# Genera una lista de letras aleatorias y sus duplicados.
+letters = list(string.ascii_uppercase) * 2
 state = {'mark': None}
 hide = [True] * 64
 
-#Inicializamos el contador de taps
+# Inicializamos el contador de taps
 tap_count = 0
+
 
 def square(x, y):
     """Draw white square with black outline at (x, y)."""
@@ -37,11 +40,16 @@ def xy(count):
 def tap(x, y):
     """Update mark and hidden tiles based on tap."""
     global tap_count  # Acceder a la variable tap_count
+
+    # Asegurarse de que las coordenadas estén dentro del rango [-200, 200]
+    x = max(min(x, 200), -200)
+    y = max(min(y, 200), -200)
+
     spot = index(x, y)
     mark = state['mark']
     tap_count += 1  # Incrementar el contador de taps
 
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    if mark is None or mark == spot or letters[mark] != letters[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
@@ -68,7 +76,7 @@ def draw():
         up()
         goto(x + 25, y + 5)
         color('black')
-        write(tiles[mark], align='center', font=('Arial', 30, 'normal'))
+        write(letters[mark], align='center', font=('Arial', 30, 'normal'))
 
     up()
     goto(-180, 180)
@@ -85,7 +93,7 @@ def draw():
     ontimer(draw, 100)
 
 
-shuffle(tiles)
+shuffle(letters)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
