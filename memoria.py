@@ -51,7 +51,7 @@ def tap(x, y):
     spot = index(x, y)
     mark = state['mark']
     tap_count += 1  # Incrementar el contador de taps
-    
+
     if mark is None or mark == spot or tiles[mark] != tiles[spot]:
         state['mark'] = spot
     else:
@@ -77,9 +77,9 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y + 5)
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(tiles[mark], align='center', font=('Arial', 30, 'normal'))
 
     up()
     goto(-180, 180)
