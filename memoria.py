@@ -87,8 +87,7 @@ def draw():
     # Verificar si todos los cuadros se han descubierto
     if all(not hidden for hidden in hide):
         goto(-180, 150)
-        write('¡Todos los cuadros han sido descubiertos!',
-              font=('Arial', 16, 'normal'))
+        write('¡Todos los cuadros han sido descubiertos!', font=('Arial', 16, 'normal'))
 
     ontimer(draw, 100)
 
